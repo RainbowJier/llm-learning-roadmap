@@ -106,4 +106,4 @@ OUT_OF_SCOPE   → 本来就不该答    → 完善拒答库+边界意图
 
 ---
 
-**下一阶段** → `../stage_06_interview_prep/README.md`：把这些战果变成Offer。
+**下一阶段** → [Stage 6 README](../stage_06_interview_prep/README.md)：把有证据的项目成果整理成作品集和面试材料。

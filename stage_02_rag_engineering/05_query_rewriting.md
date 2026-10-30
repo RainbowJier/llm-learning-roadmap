@@ -104,12 +104,29 @@ async def hyde_retrieve(self, question: str):
 MULTI_PROMPT = """把这个问题改写成3个不同角度的检索查询（每行一个，不要编号）：
 {question}"""
 
+def rrf_fuse_many(lists: list[list[dict]], k: int = 60, top_n: int = 100) -> list[dict]:
+    """Fuse any number of ranked result lists using reciprocal rank."""
+    scores: dict[str, float] = {}
+    doc_map: dict[str, dict] = {}
+    for hits in lists:
+        for rank, item in enumerate(hits, start=1):
+            did = item["id"]
+            scores[did] = scores.get(did, 0.0) + 1.0 / (k + rank)
+            doc_map.setdefault(did, item)
+    ranked = sorted(scores.items(), key=lambda pair: pair[1], reverse=True)
+    return [{**doc_map[did], "fused_score": score} for did, score in ranked[:top_n]]
+
+
 async def multi_query_retrieve(self, question: str):
     variants = (await self.llm.chat(
         MULTI_PROMPT.format(question=question))).splitlines()
-    all_hits = await asyncio.gather(          # 三路并发！Stage 1的功夫
-        *[self._single_retrieve(v) for v in variants + [question]])
-    return rrf_fuse(*all_hits)                # 复用04文档的RRF
+    all_hits = await asyncio.gather(          # 四路并发！Stage 1的功夫
+        *[self._single_retrieve(v) for v in variants[:3] + [question]])
+    merged = []
+    for hits in all_hits:
+        merged.extend(hits)
+    # 多路 RRF 应在实现层支持任意路数；这里先用统一 helper 合并。
+    return rrf_fuse_many(all_hits)
 ```
 
 代价：检索成本×4、延迟略增；收益：召回更稳。**同样用消融实验决定去留**。

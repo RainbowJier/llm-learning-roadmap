@@ -1,0 +1,1 @@
+FastAPI provides typed request validation and asynchronous HTTP endpoints. It is a good first backend framework for AI applications.

@@ -1,0 +1,1 @@
+Asyncio uses an event loop to schedule coroutines. Tasks can run concurrently when work yields control.

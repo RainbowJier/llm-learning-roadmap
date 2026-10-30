@@ -1,6 +1,6 @@
 # 检验项目：企业文档智能问答系统 v1
 
-> 对应周次：Week 10-12 ｜ 投入：60小时 ｜ 前置：01-06全部文档
+> 全局周次：Week 19-20 ｜ 阶段内周次：Week 11-12 ｜ 这是扩展项目蓝图，不计入核心必修小时 ｜ 前置：01-06全部文档
 
 ---
 
@@ -139,9 +139,10 @@ if q := st.chat_input("提问："):
     st.caption(f"改写后: {resp['rewritten_query']} | "
                f"来源: {', '.join(set(resp['sources']))} | "
                f"{resp['latency_ms']:.0f}ms")
-    st.session_state.messages.append(
+    st.session_state.messages.extend([
         {"role": "user", "content": q},
-        {"role": "assistant", "content": resp["answer"]})
+        {"role": "assistant", "content": resp["answer"]},
+    ])
 ```
 
 侧边栏加：重建索引按钮 / 跑评估按钮 / BadCase列表展示。

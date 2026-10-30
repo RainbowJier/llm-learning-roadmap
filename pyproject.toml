@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-learning-roadmap"
+version = "0.1.0"
+description = "Runnable learning baselines for an AI application engineering roadmap"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.110,<1",
+  "httpx>=0.27,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "pytest-asyncio>=0.23,<1",
+  "ruff>=0.6,<1",
+]
+rag = [
+  "rank-bm25>=0.2,<1",
+  "scikit-learn>=1.4,<2",
+]
+agent = [
+  "langgraph>=0.2,<1",
+]
+production = [
+  "prometheus-client>=0.20,<1",
+  "structlog>=24,<26",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+asyncio_mode = "auto"
+python_files = ["test_*.py"]
+
+[tool.ruff]
+line-length = 100
+exclude = [".venv", ".git"]
+
+[tool.setuptools]
+py-modules = []

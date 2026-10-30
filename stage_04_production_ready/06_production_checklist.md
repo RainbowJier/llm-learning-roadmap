@@ -10,12 +10,15 @@
 
 ---
 
-## Step 1: 自动化自检脚本（3小时）
+## Step 1: 自动化自检脚本设计（3小时）
+
+> 以下代码是教学骨架，不是可直接上线的完整脚本；其中 `ask` 和若干 `...` 需要按你的服务契约实现。可运行的离线抽象见 `code_examples/02_preflight.py`。
 
 ```python
-# scripts/preflight.py —— 上线前一键自检
+# scripts/preflight.py —— 教学骨架：按服务契约补齐后再使用
 import asyncio, httpx, sys, json
 
+BASE_URL = "http://127.0.0.1:8000"
 CHECKS = []
 
 def check(name):
@@ -25,12 +28,15 @@ def check(name):
 
 @check("服务健康")
 async def health():
-    r = await httpxget("/health"); return r.status_code == 200
+    async with httpx.AsyncClient(base_url=BASE_URL) as client:
+        r = await client.get("/health")
+    return r.status_code == 200
 
 @check("指标端点")
 async def metrics():
-    r = await httpxget("/metrics")
-    return "agent_requests_total" in r.text
+    async with httpx.AsyncClient(base_url=BASE_URL) as client:
+        r = await client.get("/metrics")
+    return r.status_code == 200 and "agent_requests_total" in r.text
 
 @check("trace注入")
 async def trace_id():
@@ -72,7 +78,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-**任何一项❌都不上线**——这就是工程纪律。
+**任何一项❌都不上线**——这是目标流程；真实使用前必须补齐所有占位检查并在目标环境演练。
 
 ---
 
@@ -145,4 +151,4 @@ Stage 4结束，你的简历弹药库应包含这些**带数字的句子**（全
 
 ---
 
-**下一阶段** → `../stage_05_full_project/README.md`：用全部功力做一个有真实用户的完整产品。
+**下一阶段** → [Stage 5 README](../stage_05_full_project/README.md)：用全部功力做一个有真实用户的可演示生产原型。

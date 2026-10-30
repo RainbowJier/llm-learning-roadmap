@@ -50,7 +50,7 @@ git push -u origin main
 
 ### 仓库特点
 
-- ✅ **62周完整学习计划** - 610小时
+- ✅ **62周完整学习计划** - 408小时核心必修，扩展实践另计
 - ✅ **6个渐进式阶段** - 从基础到高级
 - ✅ **清晰的项目结构** - 每个阶段有独立的周度计划
 - ✅ **完整的学习资源** - 文档 + 代码示例 + 项目练习
@@ -81,10 +81,10 @@ llm-learning-roadmap/
 # 📚 LLM Learning Roadmap
 
 ![Duration](https://img.shields.io/badge/Duration-62%20weeks-blue)
-![Hours](https://img.shields.io/badge/Hours-610%20h-green)
+![Hours](https://img.shields.io/badge/Core%20hours-408-green)
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 
-12个月完整的 AI 系统开发者学习路线...
+62周 AI 应用工程学习路线，包含文档、离线 baseline、测试和项目模板。
 ```
 
 ---
@@ -94,7 +94,7 @@ llm-learning-roadmap/
 上传后，你的仓库会显示：
 
 ✅ 6 个阶段目录  
-✅ 49 个 Markdown 文档  
+✅ 50 个课程 Markdown 文档，以及可运行示例与测试
 ✅ 完整的学习计划  
 ✅ 开源供其他人学习  
 

@@ -1,0 +1,5 @@
+[
+  {"question": "What does RAG combine?", "expected_doc": "rag"},
+  {"question": "What schedules coroutines?", "expected_doc": "asyncio"},
+  {"question": "What validates FastAPI requests?", "expected_doc": "fastapi"}
+]

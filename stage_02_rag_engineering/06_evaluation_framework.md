@@ -128,7 +128,9 @@ class RAGEvaluator:
 def refusal_rate(self, results_on_unanswerable: list[str]) -> float:
     """边界集上正确说"不知道"的比例"""
     keywords = ["未找到", "无法在", "没有相关", "文档中未"]
-    return sum(any(k in r for k in keywords) for r in results) / len(results)
+    if not results_on_unanswerable:
+        return 0.0
+    return sum(any(k in r for k in keywords) for r in results_on_unanswerable) / len(results_on_unanswerable)
 ```
 
 ---
